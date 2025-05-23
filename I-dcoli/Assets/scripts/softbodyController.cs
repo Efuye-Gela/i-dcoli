@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
@@ -11,14 +11,14 @@ public class SoftBodyController : MonoBehaviour
     public float springFrequency = 5f;
     public float springDamping = 0.7f;
     public float moveForce = 10f;
-
+    private bool isshrinked = false;
     private List<GameObject> points = new List<GameObject>();
     private List<SpringJoint2D> joints = new List<SpringJoint2D>();
     private List<float> originalDistances = new List<float>(); 
 
     void Start()
     {
-        transform.position = new Vector2(-37.5f, 13.9f);
+        transform.position = new Vector2(-35.4f, 18.6f);
         SpawnPointsInCircle();
         ConnectPointsWithSprings();
     }
@@ -77,26 +77,55 @@ public class SoftBodyController : MonoBehaviour
             }
         }
     }
+    public enum JointSizeState { Small, Original, Large }
 
-    public void ExpandJoints(float multiplier = 2.5f)
+    private JointSizeState currentState = JointSizeState.Original;
+
+    public void SetJointState(JointSizeState newState)
     {
+        float targetScale = 1f;
+        float targetMass = 1f;
+
+        switch (newState)
+        {
+            case JointSizeState.Small:
+                targetScale = 0.5f;
+                targetMass = 0.5f;
+                break;
+            case JointSizeState.Original:
+                targetScale = 1f;
+                targetMass = 1f;
+                break;
+            case JointSizeState.Large:
+                targetScale = 2f;
+                targetMass = 2f;
+                break;
+        }
+
+        // Update joint distances
         for (int i = 0; i < joints.Count; i++)
         {
-            joints[i].distance = originalDistances[i] * multiplier;
+            joints[i].distance = originalDistances[i] * targetScale;
         }
-    }
 
-    public void shrinkJoints(float shrinker = 2f)
-    {
-        
-
-      
-        for (int i = 0; i < joints.Count; i++)
+        // ✅ Set mass on all point Rigidbodies
+        foreach (var point in points)
         {
-            joints[i].distance = originalDistances[i] / shrinker;
+            Rigidbody2D rb = point.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.mass = targetMass;
+            }
+            else
+            {
+                Debug.LogWarning("Missing Rigidbody2D on one of the soft body points.");
+            }
         }
 
+        currentState = newState;
     }
+
+
 
 
 }

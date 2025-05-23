@@ -1,16 +1,17 @@
 using UnityEngine;
 using static SoftBodyController;
 
-public class shrinkerscript : MonoBehaviour
+public class growingscript : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D collision)
+ 
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.root.CompareTag("MainPlayer"))
         {
             SoftBodyController sbc = collision.transform.root.GetComponent<SoftBodyController>();
             if (sbc != null)
             {
-                sbc.SetJointState(JointSizeState.Small); 
+                sbc.SetJointState(JointSizeState.Large); ;
                 Destroy(gameObject);
             }
             else
@@ -19,4 +20,6 @@ public class shrinkerscript : MonoBehaviour
             }
         }
     }
+
+
 }
