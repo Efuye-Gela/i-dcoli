@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
@@ -7,41 +7,23 @@ public class SoftBodyController : MonoBehaviour
     [Header("Soft Body Settings")]
     public GameObject pointPrefab;
     public int pointCount = 10;
-    private float radius = 2.5f;
+    private float baseRadius = 2.5f;
+    private float currentScale = 1f;
+    public float sizeIncrement = 0.5f;
+    public float minScale = 0.5f;
+    public float maxScale = 1.5f;
     public float springFrequency = 5f;
     public float springDamping = 0.7f;
-    public float moveForce = 10f;
 
     private List<GameObject> points = new List<GameObject>();
     private List<SpringJoint2D> joints = new List<SpringJoint2D>();
-    private List<float> originalDistances = new List<float>(); 
+    private List<float> originalDistances = new List<float>();
 
     void Start()
     {
-        transform.position = new Vector2(-37.5f, 13.9f);
+        transform.position = new Vector2(-35.4f, 18.6f);
         SpawnPointsInCircle();
         ConnectPointsWithSprings();
-    }
-
-    void Update()
-    {
-        HandlePlayerInput();
-       
-    }
-
-    void HandlePlayerInput()
-    {
-        Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-        if (input != Vector2.zero)
-        {
-            foreach (GameObject point in points)
-            {
-                Rigidbody2D rb = point.GetComponent<Rigidbody2D>();
-                rb.AddForce(input.normalized * moveForce, ForceMode2D.Force);
-            }
-        }
-       
     }
 
     void SpawnPointsInCircle()
@@ -49,13 +31,12 @@ public class SoftBodyController : MonoBehaviour
         for (int i = 0; i < pointCount; i++)
         {
             float angle = i * Mathf.PI * 2f / pointCount;
-            Vector2 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+            Vector2 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * baseRadius * currentScale;
             Vector2 worldPos = (Vector2)transform.position + offset;
             GameObject point = Instantiate(pointPrefab, worldPos, Quaternion.identity, transform);
             points.Add(point);
         }
     }
-
 
     void ConnectPointsWithSprings()
     {
@@ -63,40 +44,46 @@ public class SoftBodyController : MonoBehaviour
         {
             for (int j = i + 1; j < pointCount; j++)
             {
-                var joint = points[i].AddComponent<SpringJoint2D>();
+                SpringJoint2D joint = points[i].AddComponent<SpringJoint2D>();
                 joint.connectedBody = points[j].GetComponent<Rigidbody2D>();
                 joint.autoConfigureDistance = false;
-                joint.distance = Vector2.Distance(points[i].transform.position, points[j].transform.position);
+                float dist = Vector2.Distance(points[i].transform.position, points[j].transform.position);
+                joint.distance = dist;
                 joint.dampingRatio = springDamping;
                 joint.frequency = springFrequency;
                 joint.enableCollision = false;
-                float dist = Vector2.Distance(points[i].transform.position, points[j].transform.position);
 
-                joints.Add(joint); 
+                joints.Add(joint);
                 originalDistances.Add(dist);
             }
         }
     }
 
-    public void ExpandJoints(float multiplier = 2.5f)
+    public void AdjustSize(float sizeChange)
     {
+        currentScale += sizeChange;
+        currentScale = Mathf.Clamp(currentScale, minScale, maxScale);
+
         for (int i = 0; i < joints.Count; i++)
         {
-            joints[i].distance = originalDistances[i] * multiplier;
+            joints[i].distance = originalDistances[i] * currentScale;
         }
-    }
 
-    public void shrinkJoints(float shrinker = 2f)
-    {
-        
-
-      
-        for (int i = 0; i < joints.Count; i++)
+        float mass = currentScale >= maxScale ? 1.4f : 1f; foreach (var point in points)
         {
-            joints[i].distance = originalDistances[i] / shrinker;
+            Rigidbody2D rb = point.GetComponent<Rigidbody2D>();
+            if (rb != null) rb.mass = mass;
         }
-
+        Debug.Log($"Scale: {currentScale}, Mass: {mass}");
     }
 
+    public void OnGrow(InputAction.CallbackContext context)
+    {
+        if (context.performed) AdjustSize(sizeIncrement);
+    }
 
+    public void OnShrink(InputAction.CallbackContext context)
+    {
+        if (context.performed) AdjustSize(-sizeIncrement);
+    }
 }

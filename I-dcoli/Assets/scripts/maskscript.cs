@@ -36,7 +36,7 @@ public class MaskScript : MonoBehaviour
     {
         if (collision.transform.root.CompareTag("MainPlayer"))
         {
-            Debug.Log("Player entered mask");
+           
             isPlayerInside = true;
         }
     }
@@ -45,7 +45,7 @@ public class MaskScript : MonoBehaviour
     {
         if (collision.transform.root.CompareTag("MainPlayer"))
         {
-            Debug.Log("Player exited mask");
+        
             isPlayerInside = false;
         }
     }
