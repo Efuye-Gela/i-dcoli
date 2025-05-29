@@ -1,65 +1,62 @@
 ﻿using UnityEngine;
 
-public class levelControllerScript : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
-    [Header("Level Settings")]
-    public GameObject[] levelPrefabs; // Prefabs of levels
-    public Transform player;
-    public Vector2[] levelStartPositions;     // Player spawn positions
-    public Vector2[] levelWorldPositions;     // Where to spawn each level
-
-    private int currentLevelIndex = 0;
-    private GameObject currentLevelInstance;
+    public GameObject[] levels;
+    public GameObject circle;
+    public GameObject currentLevel;
+    public int currentIndex = 0;
 
     void Start()
     {
-        LoadLevel(currentLevelIndex);
+        Debug.Log("Starting with currentIndex: " + currentIndex);
+        OnLevel(currentIndex);
     }
 
-    private void Update()
+    public void NextLevel()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        Debug.Log("Attempting to load next level. Current Index: " + currentIndex);
+        if (currentLevel != null)
         {
-            LoadNextLevel();
-        }
-    }
-
-    public void LoadLevel(int index)
-    {
-        if (index < 0 || index >= levelPrefabs.Length)
-        {
-            Debug.LogWarning("Invalid level index!");
-            return;
+            Destroy(currentLevel);
         }
 
-        // Destroy old level if exists
-        if (currentLevelInstance != null)
+        if (currentIndex < levels.Length - 1) 
         {
-            Destroy(currentLevelInstance);
-        }
-
-        // Instantiate new level
-        Vector3 spawnPosition = levelWorldPositions[index];
-        currentLevelInstance = Instantiate(levelPrefabs[index], spawnPosition, Quaternion.identity);
-
-        // Move player
-        player.position = levelStartPositions[index];
-
-        currentLevelIndex = index;
-
-        Debug.Log($"✅ Loaded Level {index + 1}");
-    }
-
-    public void LoadNextLevel()
-    {
-        int nextIndex = currentLevelIndex + 1;
-        if (nextIndex < levelPrefabs.Length)
-        {
-            LoadLevel(nextIndex);
+            currentIndex++;
+            Debug.Log("Incremented to Index: " + currentIndex);
+            OnLevel(currentIndex);
         }
         else
         {
-            Debug.Log("🏁 No more levels!");
+            Debug.Log("Game Won");
+        }
+    }
+
+    void OnLevel(int index)
+    {
+        Debug.Log("Loading Level at Index: " + index);
+        if (index == 0)
+        {
+            circle.transform.position = new Vector3(-33.3f, 18.8f, 0f);
+            Vector3 spawnPosition = new Vector3(10.4f, 6.29f, 0f);
+            currentLevel = Instantiate(levels[index], spawnPosition, Quaternion.identity);
+        }
+        else if (index == 1)
+        {
+            circle.transform.position = new Vector3(-115f, 8f, 0f);
+            Vector3 spawnPosition = new Vector3(27.8f, 61.8f, 0f);
+            currentLevel = Instantiate(levels[index], spawnPosition, Quaternion.identity);
+        }
+        else if (index == 2)
+        {
+            circle.transform.position = new Vector3(-181f, 70f, 0f);
+            Vector3 spawnPosition = new Vector3(23.1f, 65.7f, 0f);
+            currentLevel = Instantiate(levels[index], spawnPosition, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("Invalid level index: " + index);
         }
     }
 }

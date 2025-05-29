@@ -11,7 +11,7 @@ public class wallMovementScript : MonoBehaviour
 
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float moveoutspeed = 10f;
-    [SerializeField] private float requiredMass = 2f;
+    [SerializeField] private float requiredMass = 1.4f;
     [SerializeField] private float moveBackDelay = 1f;
 
 

@@ -1,17 +1,21 @@
-using UnityEngine;
-using static SoftBodyController;
+﻿using UnityEngine;
 
-public class growingscript : MonoBehaviour
+public class GrowingScript : MonoBehaviour
 {
- 
+    [Header("Growth Settings")]
+    [Tooltip("Amount to grow the soft body by (positive value, e.g., 0.5 = increase size by 0.5 units)")]
+    public float growAmount = 0.5f;
+    private bool hasTriggered = false; 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.root.CompareTag("MainPlayer"))
+        if (collision.transform.root.CompareTag("MainPlayer") && !hasTriggered)
         {
+            hasTriggered = true;
             SoftBodyController sbc = collision.transform.root.GetComponent<SoftBodyController>();
             if (sbc != null)
             {
-                sbc.SetJointState(JointSizeState.Large); ;
+                sbc.AdjustSize(growAmount);
                 Destroy(gameObject);
             }
             else
@@ -20,6 +24,4 @@ public class growingscript : MonoBehaviour
             }
         }
     }
-
-
 }

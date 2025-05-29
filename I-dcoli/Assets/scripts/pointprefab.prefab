@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5566975442917122101}
   - component: {fileID: 7122663058782618442}
   - component: {fileID: 4827332508018345332}
+  - component: {fileID: 5808752882467934939}
+  - component: {fileID: 5404106042135001627}
   m_Layer: 0
   m_Name: pointprefab
   m_TagString: SoftBodyPoint
@@ -152,3 +154,110 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5808752882467934939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224747435894651500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: e6a7ca7ba0cab9049848e4ba25ca2da7, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5404106042135001627}
+        m_TargetAssemblyTypeName: pointprefabscript, Assembly-CSharp
+        m_MethodName: Movement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7f0163ee-b7b6-407e-9a60-c5b2901f5a7d
+    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ce4277d9-5d2d-4de0-b7aa-f44d31e62d86
+    m_ActionName: 'Player/Look[/Mouse/delta,/Touchscreen/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7e8579f9-b478-4e18-84cd-036f2c11628f
+    m_ActionName: 'Player/Fire[/Mouse/leftButton,/Touchscreen/primaryTouch/tap]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 640ba5b9-7b3d-4559-9ed0-4756676b46b8
+    m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 77b665c0-3c8b-435f-8995-c8d3d540862d
+    m_ActionName: 'UI/Submit[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 41873734-e5d8-4028-8852-3478a50021da
+    m_ActionName: 'UI/Cancel[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dd45155c-76aa-47fc-bcdd-7d9558ac5e96
+    m_ActionName: 'UI/Point[/Mouse/position,/Touchscreen/touch0/position,/Touchscreen/touch1/position,/Touchscreen/touch2/position,/Touchscreen/touch3/position,/Touchscreen/touch4/position,/Touchscreen/touch5/position,/Touchscreen/touch6/position,/Touchscreen/touch7/position,/Touchscreen/touch8/position,/Touchscreen/touch9/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 76d24005-6a4d-4b6a-9575-4302195b8804
+    m_ActionName: 'UI/Click[/Mouse/leftButton,/Touchscreen/touch0/press,/Touchscreen/touch1/press,/Touchscreen/touch2/press,/Touchscreen/touch3/press,/Touchscreen/touch4/press,/Touchscreen/touch5/press,/Touchscreen/touch6/press,/Touchscreen/touch7/press,/Touchscreen/touch8/press,/Touchscreen/touch9/press]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8b8a62e2-0369-41b7-8d04-a1a6da5a2a44
+    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1870591f-71ab-4a96-b569-813a12d254db
+    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e2abd160-b167-4a71-a202-9033c887b597
+    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 46a9ed30-e506-4a46-b1c1-36e9e1194d2d
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2e4dfeff-f0f3-43b8-a73a-17860c85781d
+    m_ActionName: UI/TrackedDeviceOrientation
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &5404106042135001627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224747435894651500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb57993c1983c0489273f21c6301268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveForce: 10
