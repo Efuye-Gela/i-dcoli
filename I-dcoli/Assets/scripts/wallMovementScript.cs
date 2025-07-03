@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class wallMovementScript : MonoBehaviour
 {
+    [Header("Gameobjects")]
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject wall1;
     [SerializeField] private GameObject wall2;

@@ -32,7 +32,25 @@ public class LevelManager : MonoBehaviour
             Debug.Log("Game Won");
         }
     }
+    public  void previousLevel()
+    {
+        Debug.Log("Attempting to load previous level. Current Index: " + currentIndex);
+        if (currentLevel != null)
+        {
+            Destroy(currentLevel);
+        }
 
+        if (currentIndex > levels.Length + 1)
+        {
+            currentIndex++;
+            Debug.Log("Incremented to Index: " + currentIndex);
+            OnLevel(currentIndex);
+        }
+        else
+        {
+            Debug.Log("Game Won");
+        }
+    } 
     void OnLevel(int index)
     {
         Debug.Log("Loading Level at Index: " + index);

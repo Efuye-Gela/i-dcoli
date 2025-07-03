@@ -7,7 +7,7 @@ public class SoftBodyController : MonoBehaviour
     [Header("Soft Body Settings")]
     public GameObject pointPrefab;
     public int pointCount = 10;
-    private float baseRadius = 2.5f;
+    public float baseRadius = 1f;
     private float currentScale = 1f;
     public float sizeIncrement = 0.5f;
     public float minScale = 0.5f;
@@ -21,7 +21,7 @@ public class SoftBodyController : MonoBehaviour
 
     void Start()
     {
-        transform.position = new Vector2(-35.4f, 18.6f);
+        transform.position = new Vector2(5f, 10f);
         SpawnPointsInCircle();
         ConnectPointsWithSprings();
     }

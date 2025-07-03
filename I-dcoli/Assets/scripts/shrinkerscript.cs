@@ -3,7 +3,6 @@
 public class ShrinkerScript : MonoBehaviour
 {
     [Header("Shrink Settings")]
-    [Tooltip("Amount to shrink the soft body by (positive value, e.g., 0.5 = reduce size by 0.5 units)")]
     public float shrinkAmount = 0.5f;
     private bool hasTriggered = false; 
 

@@ -3,7 +3,7 @@
 public class LevelWonScript : MonoBehaviour
 {
     private LevelManager levelManager;
-    private bool hasTriggered = false; // Add flag to prevent multiple triggers
+    private bool hasTriggered = false;
 
     [Header("Transition Settings")]
     [Tooltip("Delay in seconds before loading the next level")]
