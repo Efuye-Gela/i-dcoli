@@ -116,10 +116,10 @@ TextureImporter:
       name: blood-g4e28dcb97_1920_0
       rect:
         serializedVersion: 2
-        x: 410
-        y: 504
-        width: 413
-        height: 226
+        x: 0
+        y: 1
+        width: 1920
+        height: 959
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
