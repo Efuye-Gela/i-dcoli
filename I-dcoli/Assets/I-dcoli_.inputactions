@@ -1,14 +1,22 @@
 {
-    "name": "I-dcoli",
+    "name": "I-dcoli_",
     "maps": [
         {
             "name": "Player",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
             "id": "7425040a-8b4d-497a-bc3c-730298d6c502",
+=======
+            "id": "f3f65a28-802d-4993-8342-87de1bb7f5a3",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
             "actions": [
                 {
                     "name": "Move",
                     "type": "Value",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "7f0163ee-b7b6-407e-9a60-c5b2901f5a7d",
+=======
+                    "id": "8cafed81-640d-4f1b-a3c6-75ea446ef481",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -17,7 +25,11 @@
                 {
                     "name": "Look",
                     "type": "Value",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "ce4277d9-5d2d-4de0-b7aa-f44d31e62d86",
+=======
+                    "id": "6481357c-fa23-4cfa-9aaa-41a7803d7cb8",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -26,7 +38,11 @@
                 {
                     "name": "Fire",
                     "type": "Button",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "7e8579f9-b478-4e18-84cd-036f2c11628f",
+=======
+                    "id": "4ff4b25c-183e-44eb-98c9-1b55580a4c83",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -258,12 +274,20 @@
         },
         {
             "name": "UI",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
             "id": "e342a3f3-553e-4169-868a-9100c9e97e95",
+=======
+            "id": "87ddf9bf-5f99-47b8-bc43-eb2a5fbc51de",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
             "actions": [
                 {
                     "name": "Navigate",
                     "type": "PassThrough",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "640ba5b9-7b3d-4559-9ed0-4756676b46b8",
+=======
+                    "id": "c79b032e-56f5-41ce-b570-e4df652843ce",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -272,7 +296,11 @@
                 {
                     "name": "Submit",
                     "type": "Button",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "77b665c0-3c8b-435f-8995-c8d3d540862d",
+=======
+                    "id": "6d993d6f-05a1-481a-9e03-e4bb5a902214",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -281,7 +309,11 @@
                 {
                     "name": "Cancel",
                     "type": "Button",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "41873734-e5d8-4028-8852-3478a50021da",
+=======
+                    "id": "04048e2b-fa53-4daf-a2e8-53dbe972d033",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -290,7 +322,11 @@
                 {
                     "name": "Point",
                     "type": "PassThrough",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "dd45155c-76aa-47fc-bcdd-7d9558ac5e96",
+=======
+                    "id": "5a9beb4d-c5db-4eab-b78e-e57b40a647ac",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -299,7 +335,11 @@
                 {
                     "name": "Click",
                     "type": "PassThrough",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "76d24005-6a4d-4b6a-9575-4302195b8804",
+=======
+                    "id": "57293754-8478-43e3-9e55-815a40b1885e",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -308,7 +348,11 @@
                 {
                     "name": "ScrollWheel",
                     "type": "PassThrough",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "8b8a62e2-0369-41b7-8d04-a1a6da5a2a44",
+=======
+                    "id": "ef923d27-ac46-497e-8f64-250c55936452",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -317,7 +361,11 @@
                 {
                     "name": "MiddleClick",
                     "type": "PassThrough",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "1870591f-71ab-4a96-b569-813a12d254db",
+=======
+                    "id": "db014395-ed86-4848-9b04-ae4a182dcca7",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -326,7 +374,11 @@
                 {
                     "name": "RightClick",
                     "type": "PassThrough",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "e2abd160-b167-4a71-a202-9033c887b597",
+=======
+                    "id": "287cd2bf-3171-43fb-aeb7-067f89e1a101",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -335,7 +387,11 @@
                 {
                     "name": "TrackedDevicePosition",
                     "type": "PassThrough",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "46a9ed30-e506-4a46-b1c1-36e9e1194d2d",
+=======
+                    "id": "a5e8abc6-b043-4d9a-be3a-c47cbb69f51d",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": "",
@@ -344,7 +400,11 @@
                 {
                     "name": "TrackedDeviceOrientation",
                     "type": "PassThrough",
+<<<<<<< Updated upstream:I-dcoli/Assets/I-dcoli.inputactions
                     "id": "2e4dfeff-f0f3-43b8-a73a-17860c85781d",
+=======
+                    "id": "240c9a64-b413-4754-9e32-719e3e7fca32",
+>>>>>>> Stashed changes:I-dcoli/Assets/I-dcoli_.inputactions
                     "expectedControlType": "Quaternion",
                     "processors": "",
                     "interactions": "",
