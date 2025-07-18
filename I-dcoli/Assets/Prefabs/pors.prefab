@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 353cb57b4046d9746b502a3be8318055, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: 8da2133fdff45a7419b85899268c30b2, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -208,55 +208,55 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 8cafed81-640d-4f1b-a3c6-75ea446ef481
+    m_ActionId: a9a81387-c821-4e61-9716-9d0fedad5803
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 6481357c-fa23-4cfa-9aaa-41a7803d7cb8
+    m_ActionId: 1d9d50d3-695f-4570-9f5d-1a2e2586c033
     m_ActionName: 'Player/Look[/Mouse/delta,/Touchscreen/delta]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 4ff4b25c-183e-44eb-98c9-1b55580a4c83
+    m_ActionId: 44ed3298-9298-426a-ba1d-c5ae8c8eae2e
     m_ActionName: 'Player/Fire[/Mouse/leftButton,/Touchscreen/primaryTouch/tap]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: c79b032e-56f5-41ce-b570-e4df652843ce
+    m_ActionId: dd394f77-ceb4-4192-8b59-4c93c92f13a3
     m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 6d993d6f-05a1-481a-9e03-e4bb5a902214
+    m_ActionId: c9eacade-37e7-46f8-ab0c-6546fb1c3eb3
     m_ActionName: 'UI/Submit[/Keyboard/enter]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 04048e2b-fa53-4daf-a2e8-53dbe972d033
+    m_ActionId: 9c73a401-dc4c-4e2f-bf9d-5c7b711914d6
     m_ActionName: 'UI/Cancel[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 5a9beb4d-c5db-4eab-b78e-e57b40a647ac
+    m_ActionId: 5be91a86-7f60-4124-ae90-698d146b8d7d
     m_ActionName: 'UI/Point[/Mouse/position,/Touchscreen/touch0/position,/Touchscreen/touch1/position,/Touchscreen/touch2/position,/Touchscreen/touch3/position,/Touchscreen/touch4/position,/Touchscreen/touch5/position,/Touchscreen/touch6/position,/Touchscreen/touch7/position,/Touchscreen/touch8/position,/Touchscreen/touch9/position]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 57293754-8478-43e3-9e55-815a40b1885e
+    m_ActionId: 22e3090e-358a-4f31-8c7e-a64af4d3624a
     m_ActionName: 'UI/Click[/Mouse/leftButton,/Touchscreen/touch0/press,/Touchscreen/touch1/press,/Touchscreen/touch2/press,/Touchscreen/touch3/press,/Touchscreen/touch4/press,/Touchscreen/touch5/press,/Touchscreen/touch6/press,/Touchscreen/touch7/press,/Touchscreen/touch8/press,/Touchscreen/touch9/press]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: ef923d27-ac46-497e-8f64-250c55936452
+    m_ActionId: f0a024c0-9b7d-4fe0-85c4-dbbabb59e896
     m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: db014395-ed86-4848-9b04-ae4a182dcca7
+    m_ActionId: 05677ae2-88b8-48ce-b5e1-c426caf8e23f
     m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 287cd2bf-3171-43fb-aeb7-067f89e1a101
+    m_ActionId: 98a684d2-c0dd-4e7b-b6bd-7439528b3643
     m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: a5e8abc6-b043-4d9a-be3a-c47cbb69f51d
+    m_ActionId: 8d7053dd-ceb4-4c58-b589-987e6c8a28e8
     m_ActionName: UI/TrackedDevicePosition
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 240c9a64-b413-4754-9e32-719e3e7fca32
+    m_ActionId: f5b46731-b87f-4a9c-83a5-93243aabc905
     m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
