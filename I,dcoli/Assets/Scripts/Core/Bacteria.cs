@@ -9,7 +9,6 @@ public class Bacteria : MonoBehaviour
     [Header("Game_Objects")]
     [SerializeField] private GameObject porsPrefab;
     [SerializeField] private GameObject centerPrefab;
-    [SerializeField] private GameObject bg;
     private GameObject centerPoint;
     [Header("Properties")]
     [SerializeField] private int porsCount = 10;
@@ -18,15 +17,19 @@ public class Bacteria : MonoBehaviour
     [SerializeField] private float springDamping = 0.7f;
     [Header("cinemachine")]
     [SerializeField] private CinemachineCamera virtualCamera;
-    private float currentScale = 1f;
+  
     private List<GameObject> points = new List<GameObject>();
     private List<SpringJoint2D> joints = new List<SpringJoint2D>();
     private List<float> originalDistances = new List<float>();
-    [Header("White & Red BC setting")]
-    [SerializeField] private float minScale = 0.5f;
-    [SerializeField] private float maxScale = 1.5f;
-    [SerializeField] private float sizeIncrement = 0.5f;
-   
+    //[Header("White & Red BC setting")]
+   private float currentRadius = 1f; 
+    private float minRadius = 0.2f;
+   private float maxRadius = 1.5f;
+   private float sizeIncrement = 0.5f;
+    private float currentScale = 0.5f;
+    private float minScale = 0.2f;
+    private float maxScale = 1.5f;
+
     void Start()
     {
         transform.position = new Vector2(transform.position.x,transform.position.y);
@@ -40,17 +43,14 @@ public class Bacteria : MonoBehaviour
         centerPoint = Instantiate(centerPrefab, transform.position, Quaternion.identity, transform);
         Debug.Log("Center created at: " + centerPoint.transform.position);
     }
-    private void Update()
-    {
-          bg.transform.position= centerPoint.transform.position; 
-    }
+ 
 
     void SpawnPointsInCircle()
     {
         for (int i = 0; i < porsCount; i++)
         {
             float angle = i * Mathf.PI * 2f / porsCount;
-            Vector2 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * baseRadius * currentScale;
+            Vector2 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * baseRadius * currentRadius;
             Vector2 worldPos = (Vector2)transform.position + offset;
             GameObject point = Instantiate(porsPrefab, worldPos, Quaternion.identity, transform);
             points.Add(point);
@@ -92,22 +92,24 @@ public class Bacteria : MonoBehaviour
             }
         }
     }
+
+
     public void AdjustSize(float sizeChange)
     {
-        currentScale += sizeChange;
+        currentRadius += sizeChange;
+        currentRadius = Mathf.Clamp(currentRadius, minRadius, maxRadius);
         currentScale = Mathf.Clamp(currentScale, minScale, maxScale);
-
         for (int i = 0; i < joints.Count; i++)
         {
-            joints[i].distance = originalDistances[i] * currentScale;
+            joints[i].distance = originalDistances[i] * currentRadius;
         }
 
-        float mass = currentScale >= maxScale ? 1.4f : 1f; foreach (var point in points)
+        float mass = currentRadius >= maxRadius ? 1.4f : 1f; foreach (var point in points)
         {
             Rigidbody2D rb = point.GetComponent<Rigidbody2D>();
             if (rb != null) rb.mass = mass;
         }
-        Debug.Log($"Scale: {currentScale}, Mass: {mass}");
+        Debug.Log($"Scale: {currentRadius}, Mass: {mass}");
     }
 
     public void OnGrow(InputAction.CallbackContext context)
