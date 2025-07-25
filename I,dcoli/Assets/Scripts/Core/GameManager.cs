@@ -3,6 +3,7 @@ using UnityEngine.U2D;
 using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
     [Header("Ground Shape")]
@@ -12,16 +13,17 @@ public class GameManager : MonoBehaviour
 
     [Header("Top Shape")]
     public SpriteShapeController topShape;
-    public int topIndex;
-    public Vector3 topOffset;
+    public int[] topIndices;
+    public Vector3[] topOffsets;
 
     public float moveSpeed = 2f;
     public float returnDelay = 5f;
 
     private Vector3[] groundOriginals;
     private Vector3[] groundTargets;
-    private Vector3 topOriginal;
-    private Vector3 topTarget;
+
+    private Vector3[] topOriginals;
+    private Vector3[] topTargets;
 
     private bool isAnimating = false;
 
@@ -37,11 +39,17 @@ public class GameManager : MonoBehaviour
             groundTargets[i] = groundOriginals[i] + groundOffsets[i];
         }
 
-        // Setup top point
+        // Setup top points
         var splineTop = topShape.spline;
-        topOriginal = splineTop.GetPosition(topIndex);
-        topTarget = topOriginal + topOffset;
+        topOriginals = new Vector3[topIndices.Length];
+        topTargets = new Vector3[topIndices.Length];
+        for (int i = 0; i < topIndices.Length; i++)
+        {
+            topOriginals[i] = splineTop.GetPosition(topIndices[i]);
+            topTargets[i] = topOriginals[i] + topOffsets[i];
+        }
     }
+
     private void Update()
     {
         if (Keyboard.current.rKey.wasPressedThisFrame)
@@ -49,6 +57,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
+
     public void OpenGate()
     {
         if (!isAnimating)
@@ -59,17 +68,23 @@ public class GameManager : MonoBehaviour
     {
         isAnimating = true;
 
+        // Move ground up
         yield return StartCoroutine(MoveSplinePoints(groundShape, groundIndices, groundOriginals, groundTargets));
-        yield return StartCoroutine(MoveSplinePoints(topShape, new int[] { topIndex }, new Vector3[] { topOriginal }, new Vector3[] { topTarget }));
+
+        // Move top up
+        yield return StartCoroutine(MoveSplinePoints(topShape, topIndices, topOriginals, topTargets));
 
         yield return new WaitForSeconds(returnDelay);
 
+        // Return ground
         yield return StartCoroutine(MoveSplinePoints(groundShape, groundIndices, groundTargets, groundOriginals));
-        yield return StartCoroutine(MoveSplinePoints(topShape, new int[] { topIndex }, new Vector3[] { topTarget }, new Vector3[] { topOriginal }));
+
+        // Return top
+        yield return StartCoroutine(MoveSplinePoints(topShape, topIndices, topTargets, topOriginals));
 
         isAnimating = false;
     }
-    
+
     IEnumerator MoveSplinePoints(SpriteShapeController shape, int[] indices, Vector3[] from, Vector3[] to)
     {
         Spline spline = shape.spline;

@@ -97,20 +97,33 @@ public class Bacteria : MonoBehaviour
     public void AdjustSize(float sizeChange)
     {
         currentRadius += sizeChange;
-        currentRadius = Mathf.Clamp(currentRadius, minRadius, maxRadius);
-        currentScale = Mathf.Clamp(currentScale, minScale, maxScale);
+
+        if (currentRadius < minRadius || currentRadius > maxRadius)
+        {
+            Debug.Log("Radius limit exceeded. Restarting scene...");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            return;
+        }
+
+        currentScale = Mathf.Clamp(currentRadius, minScale, maxScale);
+
+        // Update joint distances
         for (int i = 0; i < joints.Count; i++)
         {
             joints[i].distance = originalDistances[i] * currentRadius;
         }
 
-        float mass = currentRadius >= maxRadius ? 1.4f : 1f; foreach (var point in points)
+        // Update mass based on radius
+        float mass = currentRadius >= maxRadius ? 1.4f : 1f;
+        foreach (var point in points)
         {
             Rigidbody2D rb = point.GetComponent<Rigidbody2D>();
             if (rb != null) rb.mass = mass;
         }
+
         Debug.Log($"Scale: {currentRadius}, Mass: {mass}");
     }
+
 
     public void OnGrow(InputAction.CallbackContext context)
     {
