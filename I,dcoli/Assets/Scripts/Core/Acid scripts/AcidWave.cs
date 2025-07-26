@@ -50,7 +50,7 @@ public class AcidWave : MonoBehaviour
 
             spline.SetPosition(i, pos);
         }
-
+        //
         spriteShape.RefreshSpriteShape();
     }
     private void OnTriggerEnter2D(Collider2D collision)
