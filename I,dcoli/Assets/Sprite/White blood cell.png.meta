@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      White blood cell_0: 4932898003347945704
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

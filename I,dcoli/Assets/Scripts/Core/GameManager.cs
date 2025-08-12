@@ -54,7 +54,15 @@ public class GameManager : MonoBehaviour
     {
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameManager1 gm = FindAnyObjectByType<GameManager1>();
+            if (gm != null)
+            {
+                gm.RestartGame();
+            }
+            else
+            {
+                Debug.LogWarning("GameManager1 not found in the scene.");
+            }
         }
     }
 

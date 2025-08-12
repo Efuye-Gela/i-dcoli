@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Bacteria Big_0: -698393461185579011
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -101,7 +101,15 @@ public class Bacteria : MonoBehaviour
         if (currentRadius < minRadius || currentRadius > maxRadius)
         {
             Debug.Log("Radius limit exceeded. Restarting scene...");
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            GameManager1 gm = FindAnyObjectByType<GameManager1>();
+            if (gm != null)
+            {
+                gm.RestartGame();
+            }
+            else
+            {
+                Debug.LogWarning("GameManager1 not found in the scene.");
+            }
             return;
         }
 

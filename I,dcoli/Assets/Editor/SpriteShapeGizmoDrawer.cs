@@ -16,7 +16,7 @@ public class SpriteShapeGizmoDrawer : Editor
             Handles.color = Color.red;
             Handles.DrawSolidDisc(worldPos, Vector3.back, 0.1f);
             Handles.color = Color.white;
-            Handles.Label(worldPos + Vector3.up * 0.2f, $"Point {i}");
+            Handles.Label(worldPos + Vector3.up * 0.2f, $"Point {i}");//
         }
     }
 }
