@@ -58,7 +58,15 @@ public class AcidWave : MonoBehaviour
         if (collision.transform.root.CompareTag("Bacteria"))
         {
             Destroy(collision.transform.root.gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameManager1 gm = FindAnyObjectByType<GameManager1>();
+            if (gm != null)
+            {
+                gm.RestartGame();
+            }
+            else
+            {
+                Debug.LogWarning("GameManager1 not found in the scene.");
+            }
         }
     }
     public void AddWaveAtPoint(Vector3 worldPos, float amplitude = 0.3f)

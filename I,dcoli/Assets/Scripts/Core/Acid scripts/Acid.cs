@@ -7,6 +7,7 @@ public class AcidDrip : MonoBehaviour
     private float sinkDuration = 3f;
     private float sinkSpeed = 3f;
     private float sinkTimer;
+    public float shrinkAmount = 0.5f;
 
     private Rigidbody2D rb;
     private Collider2D col;
@@ -19,12 +20,16 @@ public class AcidDrip : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.root.CompareTag("Bacteria"))
+        if (collision.transform.root.CompareTag("Bacteria") )
         {
-            Debug.Log("Player hit by acid!");
-            Destroy(collision.transform.root.gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Bacteria bacteria = collision.transform.root.GetComponent<Bacteria>();
+            if (bacteria != null)
+            {
+                bacteria.AdjustSize(-shrinkAmount);
+                Destroy(gameObject);
+            }
         }
+
         else if (collision.CompareTag("AcidPool"))
         {
             AcidWave acidWave = collision.GetComponent<AcidWave>();
@@ -37,11 +42,15 @@ public class AcidDrip : MonoBehaviour
             sinkTimer = sinkDuration;
             rb.linearVelocity = Vector2.zero;
             rb.gravityScale = 0;
-            if (col != null) col.enabled = false; 
+            if (col != null) col.enabled = false;
         }
         else if (collision.CompareTag("Ground"))
         {
             Destroy(gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("Bacteria not found on MainPlayer.");
         }
     }
 
