@@ -105,6 +105,7 @@ public class Bacteria : MonoBehaviour
             if (gm != null)
             {
                 gm.RestartGame();
+
             }
             else
             {

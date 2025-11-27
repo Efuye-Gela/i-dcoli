@@ -8,7 +8,7 @@ public class AcidDrip : MonoBehaviour
     private float sinkSpeed = 3f;
     private float sinkTimer;
     public float shrinkAmount = 0.5f;
-
+    private bool _hasTriggerd = false;
     private Rigidbody2D rb;
     private Collider2D col;
 
@@ -20,7 +20,10 @@ public class AcidDrip : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.root.CompareTag("Bacteria") )
+        if (_hasTriggerd) return; // already handled, ignore further triggers
+        _hasTriggerd = true;
+
+        if (collision.transform.root.CompareTag("Bacteria"))
         {
             Bacteria bacteria = collision.transform.root.GetComponent<Bacteria>();
             if (bacteria != null)
@@ -29,7 +32,6 @@ public class AcidDrip : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-
         else if (collision.CompareTag("AcidPool"))
         {
             AcidWave acidWave = collision.GetComponent<AcidWave>();
