@@ -29,7 +29,7 @@ public class Bacteria : MonoBehaviour
     private float currentScale = 0.5f;
     private float minScale = 0.2f;
     private float maxScale = 1.5f;
-
+    private List<Rigidbody2D> porsRBs = new List<Rigidbody2D>();
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -58,6 +58,7 @@ public class Bacteria : MonoBehaviour
             Vector2 worldPos = (Vector2)transform.position + offset;
             GameObject point = Instantiate(porsPrefab, worldPos, Quaternion.identity, transform);
             points.Add(point);
+            porsRBs.Add(point.GetComponent<Rigidbody2D>());
         }
     }
     void ConnectPointsWithSprings()
@@ -96,7 +97,10 @@ public class Bacteria : MonoBehaviour
             }
         }
     }
-
+    public List<Rigidbody2D> GetPorsRigidbodies()
+    {
+        return porsRBs;
+    }
 
     public void AdjustSize(float sizeChange)
     {
