@@ -5,7 +5,7 @@ public class nextSceneloader : MonoBehaviour
 {
  void OnEnable()
     {
-        SceneManager.LoadScene("try", LoadSceneMode.Single);
+        SceneManager.LoadScene("Welcome-Page", LoadSceneMode.Single);
     }
 }
 

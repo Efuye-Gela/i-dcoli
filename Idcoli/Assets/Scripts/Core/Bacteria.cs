@@ -30,6 +30,10 @@ public class Bacteria : MonoBehaviour
     private float minScale = 0.2f;
     private float maxScale = 1.5f;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     void Start()
     {
         transform.position = new Vector2(transform.position.x,transform.position.y);

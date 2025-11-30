@@ -20,8 +20,8 @@ public class AcidDrip : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_hasTriggerd) return; // already handled, ignore further triggers
-        _hasTriggerd = true;
+        //if (_hasTriggerd) return; // already handled, ignore further triggers
+        //_hasTriggerd = true;
 
         if (collision.transform.root.CompareTag("Bacteria"))
         {
@@ -50,10 +50,7 @@ public class AcidDrip : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else
-        {
-            Debug.LogWarning("Bacteria not found on MainPlayer.");
-        }
+
     }
 
     void Update()
