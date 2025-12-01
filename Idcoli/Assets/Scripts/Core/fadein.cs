@@ -9,7 +9,7 @@ using System.Collections;
 
 public class fadein : MonoBehaviour
 {
-    public static fadein Instance; // singleton for easy access
+    public static fadein Instance; 
     private Image fadeImage;
     private void Awake()
     {

@@ -6,6 +6,7 @@ public class pausescript : MonoBehaviour
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject image;
     [SerializeField] private GameObject joystic;
+    [SerializeField] private GameManager1 gameManager;
     private bool isPaused = false;
 
     void Start()
@@ -34,11 +35,18 @@ public class pausescript : MonoBehaviour
 
         Time.timeScale = isPaused ? 0f : 1f;
     }
+    public void restartgame()
+    {
+        pauseCanvas.SetActive(false);
+        image.SetActive(false);
+        gameManager.RestartCurrentLevel();
 
+    }
     public void ResumeGame()
     {
         isPaused = false;
         image.SetActive(false);
+        menu.SetActive(true);
         pauseCanvas.SetActive(false);
         Time.timeScale = 1f;
         joystic.SetActive(true);

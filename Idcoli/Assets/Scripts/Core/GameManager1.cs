@@ -7,7 +7,7 @@ public class GameManager1 : MonoBehaviour
 {
     [SerializeField] private GameObject levels;
     [SerializeField] private GameObject welcomeCanvas;
-    [SerializeField] private GameObject bacteria; // Your main player bacteria
+    [SerializeField] private GameObject bacteria;
     [SerializeField] private GameObject Audio;
     [SerializeField] private float audioDelay = 3f;
     [SerializeField] private float fadeinduration = 1.0f;
@@ -16,34 +16,230 @@ public class GameManager1 : MonoBehaviour
     [Header("Level Management")]
     [SerializeField] private List<GameObject> levelPrefabs = new List<GameObject>();
     [SerializeField] private List<Transform> playerSpawnPositions = new List<Transform>();
+
+    [Header("UI Canvases")]
+    [SerializeField] private GameObject levelCompleteCanvas;
+
     private int currentLevelIndex = 0;
+    private int currentIndex;
+    private GameObject currentBacteria; // Reference to the current bacteria instance
+    private JoystickMove[] joystickMoveScripts; // Reference to joystick scripts
 
     private void Start()
     {
         Audio.SetActive(true);
         welcomeCanvas.SetActive(false);
 
-        // Make sure only YOUR bacteria is active, not any others
-        if (bacteria != null)
-        {
-            bacteria.SetActive(true);
-            // Disable any other bacteria in the scene
-            DisableOtherBacteria();
-        }
+        // Ensure level complete canvas is hidden at start
+        if (levelCompleteCanvas != null)
+            levelCompleteCanvas.SetActive(false);
 
         levels.SetActive(true);
         SetupLevels();
+
+        // Find all joystick move scripts
+        joystickMoveScripts = FindObjectsOfType<JoystickMove>();
+    }
+
+    // NEW METHOD: Show level complete canvas
+    public void ShowLevelCompleteCanvas()
+    {
+        if (levelCompleteCanvas != null)
+        {
+            levelCompleteCanvas.SetActive(true);
+            Debug.Log("Level Complete Canvas Shown");
+
+            // Optional: Pause game or disable player input
+            // Time.timeScale = 0f;
+        }
+        else
+        {
+            Debug.LogWarning("Level Complete Canvas is not assigned!");
+            // Fallback: go directly to next level
+            GoToNextLevel();
+        }
+    }
+
+    // UPDATED METHOD: Now called from the "Next" button
+    public void GoToNextLevel()
+    {
+        if (levelCompleteCanvas != null)
+            levelCompleteCanvas.SetActive(false);
+
+        // Optional: Resume game if paused
+        // Time.timeScale = 1f;
+
+        if (currentLevelIndex + 1 < levelPrefabs.Count)
+        {
+            StartCoroutine(NextLevelRoutine());
+        }
+        else
+        {
+            Debug.Log("Game Completed!");
+            // Optional: Show game completed screen
+        }
+    }
+
+    private IEnumerator NextLevelRoutine()
+    {
+        // Skip fade effects entirely for now
+        // yield return fadein.Instance.FadeOut(fadeout);
+
+        // Deactivate current level
+        if (levelPrefabs[currentLevelIndex] != null)
+        {
+            levelPrefabs[currentLevelIndex].SetActive(false);
+        }
+
+        currentLevelIndex++;
+
+        // Activate next level
+        if (levelPrefabs[currentLevelIndex] != null)
+        {
+            levelPrefabs[currentLevelIndex].SetActive(true);
+        }
+
+        // Destroy old bacteria and instantiate new one at spawn position
+        if (bacteria != null && currentLevelIndex < playerSpawnPositions.Count && playerSpawnPositions[currentLevelIndex] != null)
+        {
+            // Clear joystick references before destroying
+            ClearJoystickReferences();
+
+            // Destroy the current bacteria instance
+            if (currentBacteria != null)
+            {
+                Destroy(currentBacteria);
+            }
+
+            // Instantiate new bacteria at the spawn position
+            currentBacteria = Instantiate(bacteria,
+                playerSpawnPositions[currentLevelIndex].position,
+                playerSpawnPositions[currentLevelIndex].rotation);
+
+            currentBacteria.SetActive(true);
+
+            // Update joystick references with new bacteria
+            UpdateJoystickReferences();
+
+            Debug.Log($"New bacteria instantiated at: {playerSpawnPositions[currentLevelIndex].position}");
+        }
+
+        // Skip fade effects entirely for now
+        // yield return fadein.Instance.FadeIn(fadeinduration);
+
+        Debug.Log($"Now in Level {currentLevelIndex + 1}");
+
+        yield return null; // Required for coroutine
+    }
+
+    // NEW METHOD: Restart current level
+    public void RestartCurrentLevel()
+    {
+        StartCoroutine(RestartLevelRoutine());
+    }
+
+    private IEnumerator RestartLevelRoutine()
+    {
+        Debug.Log($"Restarting Level {currentLevelIndex + 1}");
+
+        // Optional: Add fade effects here
+        // yield return fadein.Instance.FadeOut(fadeout);
+
+        // Deactivate and reactivate current level to reset it
+        if (levelPrefabs[currentLevelIndex] != null)
+        {
+            levelPrefabs[currentLevelIndex].SetActive(false);
+            levelPrefabs[currentLevelIndex].SetActive(true);
+        }
+
+        // Destroy old bacteria and instantiate new one at current level's spawn position
+        if (bacteria != null && currentLevelIndex < playerSpawnPositions.Count && playerSpawnPositions[currentLevelIndex] != null)
+        {
+            // Clear joystick references before destroying
+            ClearJoystickReferences();
+
+            // Destroy the current bacteria instance
+            if (currentBacteria != null)
+            {
+                Destroy(currentBacteria);
+            }
+
+            // Instantiate new bacteria at the current level's spawn position
+            currentBacteria = Instantiate(bacteria,
+                playerSpawnPositions[currentLevelIndex].position,
+                playerSpawnPositions[currentLevelIndex].rotation);
+
+            currentBacteria.SetActive(true);
+
+            // Update joystick references with new bacteria
+            UpdateJoystickReferences();
+
+            Debug.Log($"Bacteria restarted at: {playerSpawnPositions[currentLevelIndex].position}");
+        }
+
+        if (levelCompleteCanvas != null && levelCompleteCanvas.activeSelf)
+        {
+            levelCompleteCanvas.SetActive(false);
+        }
+
+        
+
+        Debug.Log($"Level {currentLevelIndex + 1} restarted successfully");
+
+        yield return null;
+    }
+
+    // NEW METHOD: Clear joystick references before destroying bacteria
+    private void ClearJoystickReferences()
+    {
+        if (joystickMoveScripts != null)
+        {
+            foreach (var joystick in joystickMoveScripts)
+            {
+                if (joystick != null)
+                {
+                    // Use reflection or public method to clear the reference
+                    var rigidbodyField = joystick.GetType().GetField("rb",
+                        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    if (rigidbodyField != null)
+                    {
+                        rigidbodyField.SetValue(joystick, null);
+                    }
+                }
+            }
+        }
+    }
+
+    // NEW METHOD: Update joystick references with new bacteria
+    private void UpdateJoystickReferences()
+    {
+        if (joystickMoveScripts != null && currentBacteria != null)
+        {
+            Rigidbody2D newRigidbody = currentBacteria.GetComponent<Rigidbody2D>();
+
+            foreach (var joystick in joystickMoveScripts)
+            {
+                if (joystick != null)
+                {
+                    // Use reflection to set the rigidbody reference
+                    var rigidbodyField = joystick.GetType().GetField("rb",
+                        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    if (rigidbodyField != null && newRigidbody != null)
+                    {
+                        rigidbodyField.SetValue(joystick, newRigidbody);
+                    }
+                }
+            }
+        }
     }
 
     private void DisableOtherBacteria()
     {
-        // Find all bacteria objects in the scene
         GameObject[] allBacteria = GameObject.FindGameObjectsWithTag("Bacteria");
 
         foreach (GameObject otherBacteria in allBacteria)
         {
-            // Only keep YOUR assigned bacteria active, disable all others
-            if (otherBacteria != bacteria)
+            if (otherBacteria != currentBacteria)
             {
                 otherBacteria.SetActive(false);
                 Debug.Log("Disabled duplicate bacteria: " + otherBacteria.name);
@@ -61,49 +257,26 @@ public class GameManager1 : MonoBehaviour
             }
         }
 
-        // Set player bacteria to first level position
-        if (bacteria != null && playerSpawnPositions.Count > 0)
+        // Instantiate initial bacteria at first spawn position
+        if (bacteria != null && playerSpawnPositions.Count > 0 && playerSpawnPositions[0] != null)
         {
-            bacteria.transform.position = playerSpawnPositions[0].position;
-            bacteria.transform.rotation = playerSpawnPositions[0].rotation;
-            Debug.Log($"Player set to position: {playerSpawnPositions[0].position}");
-        }
-    }
-
-    public void GoToNextLevel()
-    {
-        if (currentLevelIndex + 1 < levelPrefabs.Count)
-        {
-            // Deactivate current level
-            if (levelPrefabs[currentLevelIndex] != null)
+            // Destroy any existing bacteria first
+            if (currentBacteria != null)
             {
-                levelPrefabs[currentLevelIndex].SetActive(false);
+                Destroy(currentBacteria);
             }
 
-            currentLevelIndex++;
+            // Instantiate the initial bacteria
+            currentBacteria = Instantiate(bacteria,
+                playerSpawnPositions[0].position,
+                playerSpawnPositions[0].rotation);
 
-            // Activate next level
-            if (levelPrefabs[currentLevelIndex] != null)
-            {
-                levelPrefabs[currentLevelIndex].SetActive(true);
-            }
+            currentBacteria.SetActive(true);
 
-            // Move player to new level position
-            if (bacteria != null && currentLevelIndex < playerSpawnPositions.Count)
-            {
-                bacteria.transform.position = playerSpawnPositions[currentLevelIndex].position;
-                bacteria.transform.rotation = playerSpawnPositions[currentLevelIndex].rotation;
+            // Update joystick references with initial bacteria
+            UpdateJoystickReferences();
 
-                // Clean up any new bacteria that might have spawned in the new level
-                DisableOtherBacteria();
-                Debug.Log($"Player moved to: {playerSpawnPositions[currentLevelIndex].position}");
-            }
-
-            Debug.Log($"Now in Level {currentLevelIndex + 1}");
-        }
-        else
-        {
-            Debug.Log("Game Completed!");
+            Debug.Log($"Initial bacteria instantiated at: {playerSpawnPositions[0].position}");
         }
     }
 
@@ -112,18 +285,17 @@ public class GameManager1 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (bacteria != null)
+            if (currentBacteria != null)
             {
-                Debug.Log($"Player position: {bacteria.transform.position}");
+                Debug.Log($"Current bacteria position: {currentBacteria.transform.position}");
             }
             if (currentLevelIndex < playerSpawnPositions.Count && playerSpawnPositions[currentLevelIndex] != null)
             {
-                Debug.Log($"Spawn position: {playerSpawnPositions[currentLevelIndex].position}");
+                Debug.Log($"Current spawn position: {playerSpawnPositions[currentLevelIndex].position}");
             }
         }
     }
 
-    // YOUR ORIGINAL METHODS
     public void StartGame()
     {
         if (levels != null && welcomeCanvas != null)
@@ -141,7 +313,7 @@ public class GameManager1 : MonoBehaviour
         yield return fadein.Instance.FadeOut(fadeout);
 
         levels.SetActive(true);
-        if (bacteria != null) bacteria.SetActive(true);
+        if (currentBacteria != null) currentBacteria.SetActive(true);
         welcomeCanvas.SetActive(false);
 
         yield return fadein.Instance.FadeIn(fadeinduration);
@@ -156,9 +328,11 @@ public class GameManager1 : MonoBehaviour
         Application.Quit();
     }
 
+    // Updated RestartGame method - now calls RestartCurrentLevel instead of reloading scene
     public void RestartGame()
     {
         Audio.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        RestartCurrentLevel();
+        Audio.SetActive(true); // Restart audio after reset
     }
 }
